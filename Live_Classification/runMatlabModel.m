@@ -7,18 +7,23 @@
     mymodel_stuct = load('currentClassifier.mat');
     mymodel = mymodel_stuct.currentClassifier;
     
-    %data = res
     disp('Model Loaded!')
+    
+    
     filt_data = zeros(size(data,1),numCh);
-    % Filter the data
     for ch = 1:numCh
-        filt_data(:,ch) = highpass(data(:,1+ch), 5,1000);
+       Fs = 1000;
+       x = highpass(data(:,ch+1),5,Fs);
+       x = bandstop(x,[58 62],Fs);
+       x = bandstop(x,[118 122],Fs);
+    filt_data(:,1+ch) = bandstop(x,[178 182],Fs);
     end
     disp("data Filtered")
+
     
-    includedFeatures = {'var','mean'}; 
+    includedFeatures = {'var', 'mean_freq', 'rel_var', 'rel_mean_freq'}; 
     feats = extractFeaturesExample(filt_data',includedFeatures,1000);
-    
+    disp(feats)
     
     % You might want to confirm that mymodel.PredictorNames matches the feature
     % name in feats
@@ -39,16 +44,16 @@
     disp(output)
     disp("guess")
     
-    arduino com
+    %%arduino com
     
-    clear a;
-    a = arduino("/dev/ttyACM0","Uno",'Libraries','Servo');
+    %clear a;
+    %a = arduino("/dev/ttyACM0","Uno",'Libraries','Servo');
 
-    clear servo0 servo1 servo2 servo3 servo4
+    %clear servo0 servo1 servo2 servo3 servo4
    
     
-    robo_hand_move(output,a,'yes');
-    disp("Moved2")
+    %robo_hand_move(output,a,'yes');
+    %disp("Moved2")
     
     res = output;
 

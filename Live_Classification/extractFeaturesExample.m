@@ -80,7 +80,7 @@ function [feature_table] = extractFeaturesExample(dataChTimeTr,includedFeatures,
         % Otherwise, loop through each one and give a number name 
             for  v = 1:size(fvalues,2)
                 feature_table = [feature_table table(fvalues(:,v),...
-                    'VariableNames',string(strcat(includedFeatures{f}, '_' ,'val',num2str(v))))]; %#ok<AGROW>
+                    'VariableNames',string(strcat(includedFeatures{f}, '_' ,'Ch',num2str(v))))]; %#ok<AGROW>
             end
         end
     end    
