@@ -55,7 +55,7 @@ if __name__=='__main__':
         #
         a = eng.connect_arduino()
         print('connected to arduino')
-        print(a)
+        #print(a)
         print("yeahhhhh")
         #
         
@@ -65,7 +65,7 @@ if __name__=='__main__':
         #
 
 
-        runModel = lambda data: eng.runMatlabModel(data,a)
+        runModel = lambda data: eng.runMatlabModel(data,a,mymodel)
     else:
         print('no matlab')
         dir_path = os.path.dirname(args.pythonmodel)
@@ -132,20 +132,20 @@ if __name__=='__main__':
         if marker[0] == 1:
             tstamp = time.time()
             print('Rock\r')
-            time.sleep(.8)
-            print('Papper\r')
-            time.sleep(.8)
+            time.sleep(1)
+            print('Paper\r')
+            time.sleep(1)
             print('Scissors\r')
-            time.sleep(.4)
+            time.sleep(.5)
             tstamp_start = wrapper.get_curr_timestamp()
-            time.sleep(.4)
+            time.sleep(.5)
             print('Shoot!')
-            time.sleep(1.5)
+            time.sleep(1.6)
             data = wrapper.get_data_from(tstamp_start)
             #print(np.shape(data[0:1400,:]))
             inference = runModel(data[0:1400,:])
             
             inferred_out.push_sample([inference])
-            print(f'Inference: {inference}')
+            #print(f'Inference: {inference}')
         elif marker==99:
             sys.exit(0)

@@ -1,14 +1,14 @@
- function res = runMatlabModel(data,a)
+ function res = runMatlabModel(data,a,mymodel)
     a = a;
-    disp(a)
+    %disp(a)
     %disp(data);
     numCh = 4;
 
     % This is your classifier (currentClassifier, or whatever you named it)
-    mymodel_stuct = load('currentClassifier.mat');
-    mymodel = mymodel_stuct.currentClassifier;
+    %mymodel_stuct = load('currentClassifier.mat');
+    %mymodel = mymodel_stuct.currentClassifier;
     
-    disp('Model Loaded!')
+    %disp('Model Loaded!')
     
     
     filt_data = zeros(size(data,1),numCh);
@@ -19,7 +19,7 @@
        x = bandstop(x,[118 122],Fs);
     filt_data(:,1+ch) = bandstop(x,[178 182],Fs);
     end
-    disp("data Filtered")
+    %disp("data Filtered")
 
     
     includedFeatures = {'var', 'mean_freq', 'rel_var', 'rel_mean_freq'}; 
@@ -33,22 +33,25 @@
     
     output = mymodel.predict(feats);
     if output==1
-        disp('rock')
+        disp('you threw: ')
+        disp('rock!')
     end 
     if output==2
+        disp('you threw: ')
         disp('paper')
     end 
     if output==3
+        disp('you threw: ')
         disp('scissors')
     end 
-    disp("guess")
-    disp(output)
+    %disp("guess")
+    %disp(output)
     
     
     %arduino com
     
     robo_hand_move(output,a,'yes');
-    disp("Moved")
+    %disp("Moved")
     
     res = output;
 
