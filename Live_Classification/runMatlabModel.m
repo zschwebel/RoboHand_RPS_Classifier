@@ -1,5 +1,6 @@
- function res = runMatlabModel(data)
-    
+ function res = runMatlabModel(data,a)
+    a = a;
+    disp(a)
     %disp(data);
     numCh = 4;
 
@@ -23,7 +24,6 @@
     
     includedFeatures = {'var', 'mean_freq', 'rel_var', 'rel_mean_freq'}; 
     feats = extractFeaturesExample(filt_data',includedFeatures,1000);
-    disp(feats)
     
     % You might want to confirm that mymodel.PredictorNames matches the feature
     % name in feats
@@ -41,19 +41,14 @@
     if output==3
         disp('scissors')
     end 
-    disp(output)
     disp("guess")
+    disp(output)
     
-    %%arduino com
     
-    %clear a;
-    %a = arduino("/dev/ttyACM0","Uno",'Libraries','Servo');
-
-    %clear servo0 servo1 servo2 servo3 servo4
-   
+    %arduino com
     
-    %robo_hand_move(output,a,'yes');
-    %disp("Moved2")
+    robo_hand_move(output,a,'yes');
+    disp("Moved")
     
     res = output;
 

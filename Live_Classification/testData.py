@@ -51,7 +51,21 @@ if __name__=='__main__':
         print('Make sure your model is called runMatlabModel.m and there is no runMatlabModel.m in the same folder as testData.py')
         eng.addpath(pth)
         print('running matlab model')
-        runModel = lambda data: eng.runMatlabModel(data)
+
+        #
+        a = eng.connect_arduino()
+        print('connected to arduino')
+        print(a)
+        print("yeahhhhh")
+        #
+        
+        #
+        mymodel = eng.load_model()
+
+        #
+
+
+        runModel = lambda data: eng.runMatlabModel(data,a)
     else:
         print('no matlab')
         dir_path = os.path.dirname(args.pythonmodel)
@@ -117,16 +131,16 @@ if __name__=='__main__':
                 sys.exit(0)
         if marker[0] == 1:
             tstamp = time.time()
-            print('3\r')
-            time.sleep(1)
-            print('2\r')
-            time.sleep(1)
-            print('1\r')
-            time.sleep(.5)
+            print('Rock\r')
+            time.sleep(.8)
+            print('Papper\r')
+            time.sleep(.8)
+            print('Scissors\r')
+            time.sleep(.4)
             tstamp_start = wrapper.get_curr_timestamp()
-            time.sleep(.5)
+            time.sleep(.4)
             print('Shoot!')
-            time.sleep(1.6)
+            time.sleep(1.5)
             data = wrapper.get_data_from(tstamp_start)
             #print(np.shape(data[0:1400,:]))
             inference = runModel(data[0:1400,:])
